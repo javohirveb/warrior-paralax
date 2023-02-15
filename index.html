@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warrior Parallax</title>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        section {
+            height: 100vh;
+            background: #160d0b;
+        }
+
+        section.container .bg2,
+        section.container .mountains,
+        section.container .soldier {
+            width: 100%;
+            transform-origin: center;
+            height: 100%;
+            position: absolute;
+            background-size: 100%;
+            background-repeat: no-repeat;
+        }
+
+        section.container .wrapper {
+            width: 100vw;
+            overflow: hidden;
+            background: url('https://assets.codepen.io/2621168/bg_1.jpg');
+            background-size: 110%;
+            background-repeat: no-repeat;
+            position: relative;
+            z-index: 0;
+            aspect-ratio: 16/9;
+            margin: 0 auto;
+            text-align: center;
+
+        }
+
+        section.container .bg2 {
+            background-image: url('https://assets.codepen.io/2621168/bg2.png');
+            z-index: 3;
+            width: 100%;
+        }
+
+        section.container .mountains {
+            background-image: url('https://assets.codepen.io/2621168/mountains_1.png');
+            z-index: 2;
+            width: 100%;
+        }
+
+        section.container .soldier {
+            background-image: url('https://assets.codepen.io/2621168/soldier.png');
+            height: 100vh;
+            z-index: 2;
+        }
+
+
+
+        h1 {
+            position: absolute;
+            width: 100%;
+            z-index: 6;
+            margin: 0;
+            font-size: 3rem;
+            padding: 0;
+            color: white;
+            top: 50%;
+            transform: translateY(-50%);
+            text-align: center;
+            font-family: 'Poppins';
+            text-transform: uppercase;
+        }
+
+        .text-mask {
+            overflow: hidden;
+        }
+
+        span {
+            display: block;
+        }
+
+        .top {
+            color: white;
+            text-align: center;
+            padding-top: 3em;
+            font-size: 3rem;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="top">scroll down</section>
+
+    <section class="container">
+        <div class="wrapper">
+                <h1 class="text-mask">
+                    <span>The Warrior Awaits</span>
+                </h1>
+            <div class="bg2"></div>
+            <div class="mountains"></div>
+            <div class="soldier"></div>
+        </div>
+    </section>
+    
+    <section></section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js" integrity="sha512-f8mwTB+Bs8a5c46DEm7HQLcJuHMBaH/UFlcgyetMqqkvTcYg4g5VXsYR71b3qC82lZytjNYvBj2pf0VekA9/FQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js" integrity="sha512-A64Nik4Ql7/W/PJk2RNOmVyC/Chobn5TY08CiKEX50Sdw+33WTOpPJ/63bfWPl0hxiRv1trPs5prKO8CpA7VNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@0.2.28/bundled/lenis.js"></script>
+
+
+    <script>
+        const lenis = new Lenis({})
+
+        function raf(time) {
+            lenis.raf(time)
+            requestAnimationFrame(raf)
+        }
+
+        requestAnimationFrame(raf)
+
+
+        const bg1 = document.querySelector('.wrapper')
+        const bg2 = document.querySelector('.bg2')
+        const mountains = document.querySelector('.mountains')
+        const soldier = document.querySelector('.soldier')
+        const h1 = document.querySelector('h1 span')
+
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: '.wrapper',
+                start: "top bottom",
+                scrub: 1,
+
+            }
+        })
+
+        gsap.set(soldier, { scale: 0.8 })
+
+        tl
+            .to(mountains, { scale: 1.4, y: 30 })
+            .to(soldier, { scale: 1.7, y: 90 }, 0)
+
+        gsap.from(h1, {
+            yPercent: 100,
+            scrollTrigger: {
+                trigger: h1,
+                start: "top bottom",
+                scrub: 1
+            }
+        })
+
+    </script>
+</body>
+
+</html>
